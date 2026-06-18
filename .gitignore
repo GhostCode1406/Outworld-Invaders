@@ -1,0 +1,31 @@
+# Dépendances
+node_modules/
+*/node_modules/
+
+# Builds
+dist/
+build/
+*/dist/
+
+# Environnement (secrets !)
+.env
+*/.env
+**/.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Angular
+.angular/
+
+# Prisma (généré)
+**/generated/prisma/

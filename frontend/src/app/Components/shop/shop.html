@@ -1,0 +1,31 @@
+<div class="shop">
+  <h3>🛒 Choisis ta tour</h3>
+  <div class="tower-list">
+    @for (type of towerTypes; track type.kind) {
+      <button
+        class="tower-card"
+        [class.selected]="selectedKind() === type.kind"
+        [class.disabled]="!canAfford(type)"
+        [disabled]="!canAfford(type)"
+        (click)="select(type.kind)"
+        >
+            <div class="emoji">{{ type.emoji }}
+            </div>
+        
+            <div 
+                class="name">{{ type.name }}                
+            </div>
+
+            <div 
+                class="cost">💰 {{ type.cost }}
+            </div>
+
+            <div class="stats">
+                <div>⚔️ {{ type.damage }}</div>
+                <div>🎯 {{ type.range }}</div>
+                <div>⚡ {{ type.fireRate }}/s</div>
+            </div>
+      </button>
+    }
+  </div>
+</div>

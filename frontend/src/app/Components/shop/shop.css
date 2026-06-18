@@ -1,0 +1,72 @@
+.shop {
+  background: #2a2a2a;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-family: sans-serif;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shop h3 {
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.tower-list {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tower-card {
+  background: #3a3a3a;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 12px;
+  width: 130px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.tower-card:hover:not(.disabled) {
+  background: #4a4a4a;
+  transform: translateY(-2px);
+}
+
+.tower-card.selected {
+  border-color: #4caf50;
+  background: #2e4f30;
+}
+
+.tower-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emoji {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.name {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.cost {
+  color: #ffeb3b;
+  margin-bottom: 8px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #ccc;
+}

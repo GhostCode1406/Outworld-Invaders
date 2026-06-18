@@ -1,0 +1,72 @@
+<div class="grid-wrapper">
+
+  <div class="grid" [style.grid-template-columns]="'repeat(' + cols + ', 40px)'">
+
+    @for (row of grid(); track $index) {
+      
+      @for (cell of row; track cell.col) {
+        
+        <div
+          class="cell"
+          [class.path]="cell.type === 'path'"
+          [class.placeable]="cell.type === 'grass' && !hasTower(cell.row, cell.col)"
+          (click)="onCellClick(cell.row, cell.col)"
+          >
+
+          @if (hasTower(cell.row, cell.col)) {
+            <span class="tower">{{ getTowerEmoji(cell.row, cell.col) }}</span>
+          }
+        
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Cercles de portée pour les tours posées -->
+  @for (tower of towers(); track tower.id) {
+  <div
+      class="range-indicator placed"
+      [style.left.px]="getTowerCenter(tower.col).left"
+      [style.top.px]="getTowerCenter(tower.row).top"
+      [style.width.px]="tower.range * 42 * 2"
+      [style.height.px]="tower.range * 42 * 2"
+      >
+    </div>
+  }
+
+  <!-- Tirs -->
+  @for (shot of shots(); track shot.id) {
+    
+    <svg class="shots-layer">
+      <line
+        [attr.x1]="toPixels(shot.fromX, shot.fromY).left"
+        [attr.y1]="toPixels(shot.fromX, shot.fromY).top"
+        [attr.x2]="toPixels(shot.toX, shot.toY).left"
+        [attr.y2]="toPixels(shot.toX, shot.toY).top"
+        [attr.stroke]="shot.color"
+        stroke-width="3"
+      />
+    </svg>
+  }
+
+  <!-- Ennemis -->
+  @for (enemy of enemies(); track enemy.id) {
+    
+    <div
+      class="enemy"
+      [style.left.px]="getEnemyPosition(enemy.progress).left"
+      [style.top.px]="getEnemyPosition(enemy.progress).top"
+      >
+      <div class="hp-bar">
+        
+        <div class="hp-fill" 
+          [style.width.%]="(enemy.hp / enemy.maxHp) * 100">
+        </div>
+
+      </div>
+
+        <span>👾</span>
+
+    </div>
+  }
+</div>

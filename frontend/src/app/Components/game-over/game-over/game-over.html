@@ -1,0 +1,40 @@
+@if (gameStatus() === 'won' || gameStatus() === 'lost') {
+  <div class="overlay">
+    <div class="modal" [class.win]="gameStatus() === 'won'" [class.lose]="gameStatus() === 'lost'">
+      <div class="icon">
+        {{ gameStatus() === 'won' ? '🏆' : '💀' }}
+      </div>
+      <h2>{{ gameStatus() === 'won' ? 'Victoire !' : 'Défaite' }}</h2>
+      <p class="subtitle">
+        {{ gameStatus() === 'won' ? 'Tu as repoussé toutes les vagues' : 'Les ennemis ont pris ta base' }}
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">Vague atteinte</span>
+          <span class="stat-value">{{ currentWave() }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Ennemis tués</span>
+          <span class="stat-value">{{ killCount() }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Or restant</span>
+          <span class="stat-value">{{ gold() }}</span>
+        </div>
+        <div class="stat score">
+          <span class="stat-label">Score final</span>
+          <span class="stat-value">{{ finalScore() }}</span>
+        </div>
+      </div>
+
+      @if (!isLoggedIn()) {
+        <p class="hint">💡 Connecte-toi pour sauvegarder ton score dans le leaderboard</p>
+      } @else {
+        <p class="hint">✅ Score sauvegardé dans le leaderboard</p>
+      }
+
+      <button class="replay-btn" (click)="resetGame()">Rejouer</button>
+    </div>
+  </div>
+}

@@ -1,0 +1,13 @@
+<div class="hud">
+  <div class="stat">💰 {{ gold() }}</div>
+  <div class="stat">❤️ {{ life() }}</div>
+  <div class="stat">🌊 Vague {{ currentWave() }}</div>
+  <div class="stat">🗼 Coût : {{ towerCost }}</div>
+
+  @if (gameStatus() === 'idle' || gameStatus() === 'playing') {
+  <button class="wave-btn" (click)="startNextWave()">
+    Lancer vague suivante
+  </button>
+  }
+  
+</div>

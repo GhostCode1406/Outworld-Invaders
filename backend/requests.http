@@ -1,0 +1,72 @@
+### Variables
+@baseUrl = http://localhost:3000
+
+                                        ### POST for ROOT
+### Test direct
+GET http://localhost:3000/
+
+### Test : route racine
+GET {{baseUrl}}/
+
+### Register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "secret123"
+}
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "secret123"
+}
+
+### Test d'erreur : register username trop court
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "ab",
+  "password": "secret123"
+}
+
+### Test d'erreur : Bad password
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "wrong"
+}
+
+                                        ### LEADERBOARD 
+
+### Variable pour le token (à remplir après un login réussi)
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWxpY2UiLCJpYXQiOjE3ODE2OTg3NDgsImV4cCI6MTc4MjMwMzU0OH0.jM_pdGWF4GkvSb1QPo3408ZDenGnhl66IIQ34rDO-Y8
+
+### Get leaderboard (public, pas besoin de token)
+GET {{baseUrl}}/scores
+
+### Create score (auth requise)
+POST {{baseUrl}}/scores
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "wave": 5,
+  "points": 1250
+}
+
+### Create score sans token (doit échouer en 401)
+POST {{baseUrl}}/scores
+Content-Type: application/json
+
+{
+  "wave": 3,
+  "points": 800
+}
