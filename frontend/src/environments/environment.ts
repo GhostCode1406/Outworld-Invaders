@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl:'https://outworld-invaders-api.onrender.com'
+  production: true,
+  apiUrl: 'https://outworld-invaders-api.onrender.com'
 };
