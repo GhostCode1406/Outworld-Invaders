@@ -1,13 +1,16 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Cell } from '../../Models/cell.model';
 import { Tower } from '../../Models/tower.model';
 import { Enemy } from '../../Models/enemy.model';
 import { TOWER_TYPES, TowerKind } from '../../Models/tower-type.model';
+import { AudioService } from '../audio/audio';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Game {
+  // Audio
+  private audioService = inject(AudioService);
   // État du joueur
   readonly gold = signal(100);
   readonly life = signal(20);
@@ -96,6 +99,7 @@ export class Game {
 
   this.towers.update(towers => [...towers, newTower]);
   this.gold.update(g => g - type.cost);
+  this.audioService.play('place-tower');
   return true;
 }
 
@@ -153,6 +157,7 @@ export class Game {
       const survivors = moved.filter(e => {
         if (e.progress >= this.path.length) {
           lifeLost++;
+          this.audioService.play('damage');
           return false;
         }
         return true;
@@ -163,6 +168,7 @@ export class Game {
     if (lifeLost > 0) {
       this.life.update(l => Math.max(0, l - lifeLost));
       if (this.life() === 0) this.gameStatus.set('lost');
+      this.audioService.play('defeat');
     }
 
     this.updateTowers(now);
@@ -214,6 +220,7 @@ export class Game {
 
       if (this.currentWave() >= this.waves.length) {
         this.gameStatus.set('won');
+        this.audioService.play('victory');
       }
     }
   }
@@ -295,6 +302,7 @@ export class Game {
         createdAt: now,
         color: TOWER_TYPES[tower.kind].color
 });
+        this.audioService.play('shoot');
       }
     }
 
@@ -313,6 +321,7 @@ export class Game {
     if (e.hp <= 0) {
     goldEarned += 5;
     killsThisTick++;
+    this.audioService.play('enemy-die');
     }
   }
 

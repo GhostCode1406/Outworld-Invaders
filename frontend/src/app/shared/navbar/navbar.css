@@ -46,3 +46,8 @@
 .logout-btn {
   cursor: pointer;
 }
+
+.mute-btn {
+  font-size: 18px;
+  cursor: pointer;
+}
